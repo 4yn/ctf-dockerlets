@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# runs volatility with current directory mapped to /dumps
+
+if [[ ! "$PWD" =~ /home ]]; then
+  echo "Error: run somewhere inside /home/"
+  exit 1
+fi
+
+docker run --rm -it \
+  --user=$(id -u):$(id -g) \
+  -v "$(pwd)":/dumps:Z \
+  phocean/volatility $@

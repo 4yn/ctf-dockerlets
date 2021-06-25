@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Spawns a parrot shell and mounts current directory
+
+if [[ $# -ne 0 ]]; then
+  echo "Error: no parameters expected, received $@"
+  exit 1
+fi
+
+if [[ ! "$PWD" =~ /home ]]; then
+  echo "Error: run somewhere inside /home/"
+  exit 1
+fi
+
+docker run --rm -it \
+  -v "$(pwd)":/data:Z \
+  -w /data \
+  parrotsec/security /bin/bash
